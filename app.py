@@ -1,6 +1,5 @@
 import streamlit as st
 import tensorflow as tf
-import random
 from PIL import Image, ImageOps
 import numpy as np
 import warnings
