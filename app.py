@@ -21,6 +21,9 @@ with st.sidebar:
         st.subheader("Pinoy AI Engineer and Competitive Programmer")
         st.text("Connect with me via Linkedin : https://www.linkedin.com/in/algorexph/")
         st.text("Kaggle Account : https://www.kaggle.com/daniellebagaforomeer")
+        st.title("Shikaniah Castillo")
+        st.image('images/Castillo.png')
+
 
 hide_streamlit_style = """
             <style>
