@@ -3,6 +3,7 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 import warnings
+import cv2
 warnings.filterwarnings("ignore")
 
 
@@ -55,24 +56,26 @@ st.write("""
 file = st.file_uploader("", type=["jpg", "png"])
 
 
-def import_and_predict(image_data, model):
-    size = (100, 100)    
-    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-    img = np.asarray(image)
-    img_reshape = img[np.newaxis,...]
-    prediction = model.predict(img_reshape)
-    return prediction
+def size_regulator(path, image_column='path', target_size=(100, 100)):
+    image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    image = np.asarray(image)
+    image = cv2.resize(image, target_size)
+    return image
 
 if file is None:
     st.text("Please upload an image file")
 else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    predictions = import_and_predict(image, model)
+    image = image.save("temp.jpg")
+    image_resized = size_regulator("temp.jpg")
+    image_resized = image_resized.reshape(-1, 100, 100, 1)
+    prediction = model.predict(image_resized)
+    #predictions = import_and_predict(image, model)
 
     class_names = {0 : '0', 1 : '1', 2 : '2', 3 : '3', 4 : '4', 5 : '5', 6 : '6', 7 : '7', 8 : '8', 9 : '9', 10 : 'A', 11 : 'B', 12 : 'C', 13 : 'D', 14 : 'E', 15 : 'F', 16 : 'G', 17 : 'H', 18 : 'I', 19 : 'J', 20 : 'K', 21 : 'L', 22 : 'M', 23 : 'N', 24 : 'P', 25 : 'Q', 26 : 'R', 27 : 'S',  28 : 'T', 29 : 'U', 30 : 'V', 31 : 'W', 32 : 'X', 33 : 'Y', 34 : 'Z'}
 
-    predicted_class_index = np.argmax(predictions)
+    predicted_class_index = np.argmax(prediction)
     predicted_class_name = class_names[predicted_class_index]
 
     string = "Detected Character is : " + predicted_class_name
