@@ -70,8 +70,6 @@ if options == "Home" :
    st.write("Pinoy AI Engineer and Competitive Programmer")
    st.text("Connect with me via Linkedin : https://www.linkedin.com/in/algorexph/")
    st.text("Kaggle Account : https://www.kaggle.com/daniellebagaforomeer")
-   st.title("Shikaniah Castillo")
-   st.image('images/Castillo.png')
    st.write("\n")
    keep_me = '''
 with st.sidebar:
